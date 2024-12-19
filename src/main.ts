@@ -1,17 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Habilitar CORS
+  // Aumentar el límite del cuerpo de la solicitud a 20 MB
+  app.use(bodyParser.json({ limit: '20mb' }));
+  app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
+
+  // Configuración de CORS (opcional si lo usas)
   app.enableCors({
-    origin: '*', // Permite todas las URLs, puedes especificar un dominio en vez de '*' si lo prefieres.
-    methods: 'GET,POST,PUT,DELETE', // Métodos permitidos
-    allowedHeaders: 'Content-Type, Authorization', // Cabeceras permitidas
+    origin: '*',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
   });
 
-  // Iniciar el servidor
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
