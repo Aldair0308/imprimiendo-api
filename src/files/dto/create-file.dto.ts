@@ -40,4 +40,8 @@ export class CreateFileDto {
   @IsDateString()
   @IsOptional()
   createdAt?: Date;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
 }

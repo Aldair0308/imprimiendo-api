@@ -1,7 +1,6 @@
 import { Schema, Document } from 'mongoose';
 
 export const FileSchema = new Schema({
-  id_v: { type: Number, required: true },
   status: {
     type: String,
     enum: ['active', 'inactive', 'archived'],
@@ -14,10 +13,12 @@ export const FileSchema = new Schema({
   color: { type: String, enum: ['color', 'black-and-white'], required: true },
   copies: { type: Number, default: 1 },
   createdAt: { type: Date, default: Date.now },
+  price: { type: Number, required: true }, // Campo de precio obligatorio como flotante
+  session: { type: Number, required: true }, // Campo de sesión como entero obligatorio
 });
 
+// Interfaz para tipificación
 export interface File extends Document {
-  id_v: number;
   status: 'active' | 'inactive' | 'archived';
   name: string;
   size: number;
@@ -26,4 +27,6 @@ export interface File extends Document {
   color: 'color' | 'black-and-white';
   copies: number;
   createdAt: Date;
+  price: number; // Propiedad para el precio como flotante
+  session: number; // Propiedad para la sesión como entero
 }

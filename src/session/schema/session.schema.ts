@@ -12,6 +12,7 @@ export const SessionSchema = new Schema({
   files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }], // Referencias a archivos
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  totalPrice: { type: Number, required: true, default: 0 }, // Campo totalPrice como float obligatorio
 });
 
 // Interfaz para tipificación
@@ -21,4 +22,5 @@ export interface Session extends Document {
   files: mongoose.Types.ObjectId[]; // Referencias a archivos
   createdAt: Date;
   updatedAt: Date;
+  totalPrice: number; // Propiedad para el precio total como flotante
 }
