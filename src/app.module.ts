@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SessionModule } from './session/session.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { SessionModule } from './session/session.module';
     }),
     // Importar el módulo de la sesión
     SessionModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

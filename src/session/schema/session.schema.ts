@@ -1,22 +1,24 @@
 import { Schema, Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
+// Esquema para la sesión
 export const SessionSchema = new Schema({
-  id_v: { type: Number, required: true },
+  number: { type: Number, required: true, unique: true }, // Número único
   status: {
     type: String,
     enum: ['active', 'inactive', 'expired', 'waiting', 'finished'],
     required: true,
   },
-  files: { type: [Number], default: [] }, // Arreglo de id_v's
+  files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }], // Referencias a archivos
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
 
-// Aquí exportamos una interfaz que extienda de Document para aprovechar la tipificación en TypeScript
+// Interfaz para tipificación
 export interface Session extends Document {
-  id_v: number;
+  number: number; // Número único de la sesión
   status: 'active' | 'inactive' | 'expired' | 'waiting' | 'finished';
-  files: number[];
+  files: mongoose.Types.ObjectId[]; // Referencias a archivos
   createdAt: Date;
   updatedAt: Date;
 }

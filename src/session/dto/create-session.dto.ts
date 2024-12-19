@@ -1,30 +1,26 @@
 import {
-  IsArray,
-  IsEnum,
   IsInt,
+  IsEnum,
+  IsArray,
   IsOptional,
-  IsPositive,
-  IsDateString,
+  IsNotEmpty,
 } from 'class-validator';
 
 export class CreateSessionDto {
   @IsInt()
-  @IsPositive()
-  id_v: number;
+  @IsNotEmpty()
+  number: number; // Número de la sesión, obligatorio
 
   @IsEnum(['active', 'inactive', 'expired', 'waiting', 'finished'])
   status: 'active' | 'inactive' | 'expired' | 'waiting' | 'finished';
 
   @IsArray()
-  @IsInt({ each: true })
   @IsOptional()
-  files: number[] = [];
+  files?: number[] = [];
 
-  @IsDateString()
   @IsOptional()
   createdAt?: Date;
 
-  @IsDateString()
   @IsOptional()
   updatedAt?: Date;
 }
